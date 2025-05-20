@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إضافة وكالة جديدة - نظام إدارة الوكالات</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+        }
+        .sidebar {
+            background-color: #1e40af; /* Blue accent */
+            color: white;
+        }
+        .sidebar-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .active {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        .btn-action {
+            transition: all 0.2s ease;
+        }
+        .btn-primary {
+            background-color: #1e40af;
+            color: white;
+        }
+        .btn-secondary {
+            background-color: #6b7280;
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <div class="sidebar hidden md:flex md:flex-shrink-0">
+            <div class="flex flex-col w-64">
+                <div class="flex flex-col flex-grow pt-5 pb-4 overflow-y-auto">
+                    <div class="flex items-center flex-shrink-0 px-4">
+                        <h1 class="text-xl font-bold">لوحة إدارة الوكالات</h1>
+                    </div>
+                    <div class="mt-5 flex-grow flex flex-col">
+                        <nav class="flex-1 px-2 space-y-1">
+                            <a href="dashboard.html" class="sidebar-item group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+                                <i class="fas fa-home ml-3"></i>
+                                الرئيسية
+                            </a>
+                            <a href="#" class="sidebar-item active group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+                                <i class="fas fa-users ml-3"></i>
+                                الوكالات
+                            </a>
+                            <a href="#" class="sidebar-item group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+                                <i class="fas fa-chart-bar ml-3"></i>
+                                التقارير
+                            </a>
+                            <a href="#" class="sidebar-item group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+                                <i class="fas fa-cog ml-3"></i>
+                                الإعدادات
+                            </a>
+                        </nav>
+                    </div>
+                    <div class="flex-shrink-0 flex border-t border-blue-800 p-4">
+                        <a href="#" class="flex-shrink-0 group block">
+                            <div class="flex items-center">
+                                <div>
+                                    <img class="inline-block h-10 w-10 rounded-full" 
+                                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" 
+                                        alt="">
+                                </div>
+                                <div class="mr-3">
+                                    <p class="text-base font-medium text-white">أحمد محمد</p>
+                                    <p class="text-sm font-medium text-blue-200">تسجيل الخروج</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main content -->
+        <div class="flex flex-col w-0 flex-1 overflow-hidden">
+            <!-- Top navbar -->
+            <div class="relative z-10 flex-shrink-0 flex h-16 bg-white shadow">
+                <button type="button" class="px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 md:hidden" onclick="toggleSidebar()">
+                    <span class="sr-only">فتح القائمة الجانبية</span>
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="flex-1 px-4 flex justify-between">
+                    <div class="flex-1 flex">
+                        <div class="w-full flex md:mr-0">
+                            <div class="relative w-full text-gray-400 focus-within:text-gray-600">
+                                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                    <i class="fas fa-search"></i>
+                                </div>
+                                <input id="search-field" class="block w-full h-full pr-8 pl-3 py-2 border-transparent text-gray-900 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-0 focus:border-transparent sm:text-sm" 
+                                    placeholder="بحث..." type="search" name="search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mr-4 flex items-center md:mr-6">
+                        <button type="button" class="p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            <span class="sr-only">عرض الإشعارات</span>
+                            <i class="fas fa-bell"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main content area -->
+            <main class="flex-1 relative overflow-y-auto focus:outline-none">
+                <div class="py-6">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+                        <h1 class="text-2xl font-semibold text-gray-900">إضافة وكالة جديدة</h1>
+                    </div>
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+                        <div class="mt-5 bg-white p-6 rounded-lg shadow">
+                            <form id="add-agency-form">
+                                <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                                    <div>
+                                        <label for="agency-id" class="block text-sm font-medium text-gray-700">معرف الوكالة</label>
+                                        <input type="text" name="agency-id" id="agency-id" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="مثال: AG-007">
+                                    </div>
+                                    <div>
+                                        <label for="agency-name" class="block text-sm font-medium text-gray-700">اسم الوكالة</label>
+                                        <input type="text" name="agency-name" id="agency-name" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="مثال: وكالة الخبر">
+                                    </div>
+                                    <div>
+                                        <label for="agency-members" class="block text-sm font-medium text-gray-700">عدد الأعضاء</label>
+                                        <input type="number" name="agency-members" id="agency-members" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" min="1" placeholder="مثال: 5">
+                                    </div>
+                                    <div>
+                                        <label for="agency-status" class="block text-sm font-medium text-gray-700">الحالة</label>
+                                        <select id="agency-status" name="agency-status" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                            <option value="active">نشط</option>
+                                            <option value="inactive">متوقف</option>
+                                        </select>
+                                    </div>
+                                    <div class="sm:col-span-2">
+                                        <label for="agency-description" class="block text-sm font-medium text-gray-700">وصف الوكالة</label>
+                                        <textarea id="agency-description" name="agency-description" rows="3" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="وصف مختصر للوكالة..."></textarea>
+                                    </div>
+                                </div>
+                                <div class="mt-6 flex justify-end space-x-3 space-x-reverse">
+                                    <a href="dashboard.html" class="btn-secondary px-4 py-2 rounded-md text-sm font-medium">
+                                        إلغاء
+                                    </a>
+                                    <button type="submit" class="btn-primary px-4 py-2 rounded-md text-sm font-medium">
+                                        إضافة الوكالة
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        function toggleSidebar() {
+            const mobileSidebar = document.getElementById('mobile-sidebar');
+            if (mobileSidebar.classList.contains('hidden')) {
+                mobileSidebar.classList.remove('hidden');
+            } else {
+                mobileSidebar.classList.add('hidden');
+            }
+        }
+        
+        // Form submission handler
+        document.getElementById('add-agency-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const agencyId = document.getElementById('agency-id').value;
+            const agencyName = document.getElementById('agency-name').value;
+            const agencyMembers = document.getElementById('agency-members').value;
+            const agencyStatus = document.getElementById('agency-status').value;
+            
+            // Validate form
+            if (!agencyId || !agencyName || !agencyMembers) {
+                alert('يرجى ملء جميع الحقول المطلوبة');
+                return;
+            }
+            
+            // In a real application, you would send this data to the server
+            alert(`تمت إضافة الوكالة ${agencyName} بنجاح!`);
+            
+            // Redirect to dashboard
+            window.location.href = 'dashboard.html';
+        });
+    </script>
+</body>
+</html>

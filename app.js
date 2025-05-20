@@ -12,6 +12,84 @@ const agencies = [
 
 // DOM Elements
 document.addEventListener('DOMContentLoaded', function() {
+    // Check which page we're on
+    const currentPath = window.location.pathname;
+    
+    // Login page functionality
+    if (currentPath.includes('login.html') || currentPath.includes('index.html')) {
+        setupLoginPage();
+    }
+    
+    // Registration page functionality
+    else if (currentPath.includes('register.html')) {
+        setupRegisterPage();
+    }
+    
+    // Dashboard functionality
+    else if (currentPath.includes('dashboard.html')) {
+        setupDashboard();
+    }
+    
+    // Add agency page functionality
+    else if (currentPath.includes('add-agency.html')) {
+        setupAddAgencyPage();
+    }
+});
+
+// Login page setup
+function setupLoginPage() {
+    const loginForm = document.getElementById('login-form');
+    if (loginForm) {
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email-address').value;
+            const password = document.getElementById('password').value;
+            
+            // Simple validation
+            if (!email || !password) {
+                alert('يرجى إدخال البريد الإلكتروني وكلمة المرور');
+                return;
+            }
+            
+            // In a real app, you would authenticate with a server here
+            // For demo purposes, we'll just redirect to the dashboard
+            window.location.href = 'dashboard.html';
+        });
+    }
+}
+
+// Registration page setup
+function setupRegisterPage() {
+    const registerForm = document.getElementById('register-form');
+    if (registerForm) {
+        registerForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const fullName = document.getElementById('full-name').value;
+            const email = document.getElementById('email-address').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            
+            // Simple validation
+            if (!fullName || !email || !password) {
+                alert('يرجى ملء جميع الحقول المطلوبة');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                alert('كلمات المرور غير متطابقة');
+                return;
+            }
+            
+            // In a real app, you would register with a server here
+            // For demo purposes, we'll just redirect to the login page
+            alert('تم إنشاء الحساب بنجاح! يرجى تسجيل الدخول.');
+            window.location.href = 'login.html';
+        });
+    }
+}
+
+// Dashboard setup
+function setupDashboard() {
     // Add event listeners to action buttons
     const manageButtons = document.querySelectorAll('.btn-manage');
     const clearButtons = document.querySelectorAll('.btn-clear');
@@ -47,7 +125,20 @@ document.addEventListener('DOMContentLoaded', function() {
             filterAgencies(this.value);
         });
     }
-});
+    
+    // Add agency button
+    const addAgencyButton = document.querySelector('button:has(.fa-plus)');
+    if (addAgencyButton) {
+        addAgencyButton.addEventListener('click', function() {
+            window.location.href = 'add-agency.html';
+        });
+    }
+}
+
+// Add agency page setup
+function setupAddAgencyPage() {
+    // Form handling is done in the page itself
+}
 
 // Functions
 function openManageModal(agencyId) {
